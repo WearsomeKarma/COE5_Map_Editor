@@ -1,0 +1,53 @@
+﻿<Window x:Class="ConquestOfElysium5_MapEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConquestOfElysium5_MapEditor.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="20">
+            <MenuItem Header="_File">
+                <MenuItem Header="Save" />
+                <MenuItem Header="Save As" />
+                <MenuItem Header="Load Map" Click="File__Load_Map"/>
+                <MenuItem Header="Select COE5 Roaming Directory" Click="File__Select_COE5_Roaming_Directory"/>
+                <MenuItem Header="Select COE5 Data Directory" Click="File__Select_COE5_Data_Directory"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Modify Plane Size"/>
+                <MenuItem Header="Edit Planes"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0" Width="150">
+            </Grid>
+            <local:COE5_MapEditor x:Name="COE5_Map_Editor" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1"/>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="30*"/>
+            </Grid.ColumnDefinitions>
+            <ProgressBar Grid.Column="0" x:Name="Progress" />
+            <Label Grid.Column="2" x:Name="Message"/>
+        </Grid>
+    </Grid>
+</Window>
