@@ -1,4 +1,5 @@
 /ConquestOfElysium5_MapEditor/bin
 /ConquestOfElysium5_MapEditor/obj
 /.vs
-/packages
+/packages/*/lib
+/packages/*/.signature.p7s
