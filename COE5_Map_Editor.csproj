@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="OpenTK" Version="4.7.4" />
+    <PackageReference Include="StbImageSharp" Version="2.27.11" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GitRepos\Gwen.Net\Gwen.Net\Gwen.Net.csproj" />
+    <ProjectReference Include="..\..\GitRepos\Gwen.Net\Gwen.Net.OpenTk\Gwen.Net.OpenTk.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="DefaultSkin2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="coe5_editor_config.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
