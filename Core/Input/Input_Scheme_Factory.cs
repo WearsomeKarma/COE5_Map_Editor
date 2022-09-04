@@ -20,7 +20,7 @@ public class Input_Scheme_Factory
     public Input_Scheme_Factory Bind_Key
     (
         Keys key_control, 
-        Operation_Core__Types operation_type,
+        Operation_Types operation_type,
         Input_Modifier_Types modifier_type = Input_Modifier_Types.NONE
     )
     {
@@ -34,7 +34,7 @@ public class Input_Scheme_Factory
     public Input_Scheme_Factory Bind_Mouse
     (
         MouseButton mouse_control,
-        Operation_Core__Types operation_type,
+        Operation_Types operation_type,
         Input_Modifier_Types modifier_type = Input_Modifier_Types.NONE
     )
     {

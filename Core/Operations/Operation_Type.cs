@@ -5,8 +5,9 @@ namespace COE5_Map_Editor.Core;
 /// These are operations limited to controlling
 /// or operating on the map view.
 /// </summary>
-public enum Operation_Core__Types
+public enum Operation_Types
 {
+    SUB_OPERATION = -1, // this is for sub_operations.
     NOTHING = 0,
     Tool__Use = 1,
     Move_To__Plane = 2,

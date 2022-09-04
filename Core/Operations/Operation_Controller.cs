@@ -1,5 +1,6 @@
 
 using COE5_Map_Editor.Core.Input;
+using COE5_Map_Editor.Core.Processing;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
@@ -14,7 +15,9 @@ namespace COE5_Map_Editor.Core.Operations;
 /// </summary>
 public class Operation_Controller
 {
-    internal readonly Operation_Switch m_Operation_Switch;
+    internal readonly Operation_Switch Operation_Switch;
+
+    internal Action<GPU_Process?>? Callback__Process_GPU;
 
     private struct Operation_Message
     {
@@ -33,7 +36,7 @@ public class Operation_Controller
         IEnumerable<Operation> operations
     )
     {
-        m_Operation_Switch = 
+        Operation_Switch = 
             new Operation_Switch(input_scheme, operations);
 
         foreach(Operation operation in operations)
@@ -42,6 +45,7 @@ public class Operation_Controller
 
     protected internal virtual void Process
     (
+        COE5_Editor_State state,
         KeyboardKeyEventArgs? e_key,
         MouseButtonEventArgs? e_mouse,
         KeyboardState keyboard,
@@ -61,7 +65,7 @@ public class Operation_Controller
         Console.WriteLine($"mouse?: {e_mouse?.Button}");
 
         Console.WriteLine($"--- signing: \t\t-- {Convert.ToString(event_signature.GetHashCode(),2).PadLeft(17, '0')} ---");
-        m_Operation_Switch.Switch(keyboard, mouse, ref event_signature, out operation_info);
+        Operation_Switch.Switch(keyboard, mouse, ref event_signature, out operation_info);
 
         if (operation_info == null) return;
 
@@ -83,7 +87,7 @@ public class Operation_Controller
             return;
         }
 
-        operation.Operate(event_signature);
+        operation.Operate(state, event_signature);
     }
 
     protected internal virtual void Handle__On_Update()
@@ -91,14 +95,21 @@ public class Operation_Controller
 
     }
 
-    protected internal virtual void Handle__On_Render()
+    protected internal virtual void Handle__On_Render
+    (
+        COE5_Editor_State state
+    )
     {
         Operation_Message msg;
 
         while(m_GPU_Operation_Queue.TryDequeue(out msg))
         {
             Console.WriteLine($"process k_msg: {msg.operation}");
-            msg.operation.Operate(msg.event_signature);
+            GPU_Process? gpu_process =
+                msg.operation.Operate__GPU(state, msg.event_signature);
+            
+            if (gpu_process == null) continue;
+            Callback__Process_GPU?.Invoke(gpu_process);
         }
     }
 }

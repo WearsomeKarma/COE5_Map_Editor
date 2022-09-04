@@ -32,14 +32,29 @@ public class Dialog_Bindings : Gwen.Net.Control.Window
 
     public delegate bool Validate__Binding_Request
     (Input_Binding requested, Operation_Info operation_info);
-    public delegate bool Validate__Binding_Transition
+    public delegate bool? Validate__Binding_Transition
     (Input_Binding old_binding, Input_Binding new_binding, Operation_Info target);
 
     public Dialog_Bindings
     (
         ControlBase parent, 
         IEnumerable<KeyValuePair<Input_Binding, Operation_Info>> bindings,
+        //TODO:
+        // reminder on how to impl:
+        // if true, proceed, if false
+        // abort and notify user the binding
+        // to the intended operation is deemed
+        // illegal. Ex. Move_To__Plane cannot bind
+        // to a non-numeric binding.
         Validate__Binding_Request validate__binding_request,
+        //TODO:
+        // just a reminder on how to do this
+        // see if op being unbinded is chill with
+        // having no bind. Then if not, see if its
+        // shiesty with swapping. If not, notify the
+        // user why the binding failed and the op
+        // responsible. (true, false, null) 
+        //              might be best to encapsulate here.
         Validate__Binding_Transition validate__binding_transition
     ) 
     : base(parent)
@@ -70,6 +85,7 @@ public class Dialog_Bindings : Gwen.Net.Control.Window
     bool m_Is_Keybinding;
     private void Handle__Begin_Keybinding(ControlBase sender, ClickedEventArgs args)
     {
+
     }
 
     private void Handle__Finish_Keybinding()

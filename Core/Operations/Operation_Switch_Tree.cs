@@ -21,7 +21,7 @@ public class Operation_Switch_Tree : IEnumerable<KeyValuePair<Input_Binding, Ope
         m_Base_Binding = binding;
     }
 
-    public bool Is__Event_Not_Routable
+    public bool Is__Event_Routable
     (
         KeyboardState keyboard, 
         MouseState mouse,
@@ -89,7 +89,7 @@ public class Operation_Switch_Tree : IEnumerable<KeyValuePair<Input_Binding, Ope
             ;
     }
 
-    public bool Route__Binding_Right_Or_Left(ref Input_Binding binding)
+    public bool Check_If__Matches_Base_Binding(ref Input_Binding binding)
         => (binding & m_Base_Binding) >= m_Base_Binding.GetHashCode();
 
     internal void Route
@@ -103,7 +103,7 @@ public class Operation_Switch_Tree : IEnumerable<KeyValuePair<Input_Binding, Ope
         Console.WriteLine($"routing {event_signature.Key_Binding?.ToString() ?? event_signature.Mouse_Binding!.ToString()}");
         Console.WriteLine($"--- EVENT: \t\t-- {Convert.ToString(event_signature.GetHashCode(),2).PadLeft(17, '0')} ---");
 
-        if (Is__Event_Not_Routable(keyboard, mouse, ref event_signature))
+        if (Is__Event_Routable(keyboard, mouse, ref event_signature))
         {
             if (m_Right != null)
             {
@@ -115,7 +115,11 @@ public class Operation_Switch_Tree : IEnumerable<KeyValuePair<Input_Binding, Ope
             foreach(Input_Binding binding in m_Operations.Keys)
                 Console.WriteLine($"{m_Operations[binding].Type_Name} \t\t-- {Convert.ToString(binding.GetHashCode(), 2).PadLeft(17, '0')}");
 
-            binded_operation = m_Operations[event_signature];
+            if (m_Operations.ContainsKey(event_signature))
+                binded_operation = m_Operations[event_signature];
+            else
+                binded_operation = null;
+            return;
         }
 
         if (m_Left != null)
@@ -127,7 +131,12 @@ public class Operation_Switch_Tree : IEnumerable<KeyValuePair<Input_Binding, Ope
 
         foreach(Input_Binding binding in m_Operations.Keys)
             Console.WriteLine($"{m_Operations[binding].Type_Name} \t\t-- {Convert.ToString(binding.GetHashCode(), 2).PadLeft(17, '0')}");
-        binded_operation = m_Operations[event_signature];
+
+        if (m_Operations.ContainsKey(event_signature))
+            binded_operation = m_Operations[event_signature];
+        else
+            binded_operation = null;
+        return;
     }
 
     public Operation_Switch_Tree Set_Left
@@ -158,7 +167,7 @@ public class Operation_Switch_Tree : IEnumerable<KeyValuePair<Input_Binding, Ope
     {
         Console.WriteLine($"adding {binding.Key_Binding?.ToString() ?? binding.Mouse_Binding!.ToString()}");
 
-        if (Route__Binding_Right_Or_Left(ref binding))
+        if (Check_If__Matches_Base_Binding(ref binding))
         {
             bool right_set =
                 m_Right?.Add_Binding(binding, operation_info) ?? false;
@@ -190,7 +199,7 @@ public class Operation_Switch_Tree : IEnumerable<KeyValuePair<Input_Binding, Ope
 
     internal bool Remove_Control(Input_Binding control)
     {
-        if (Route__Binding_Right_Or_Left(ref control))
+        if (Check_If__Matches_Base_Binding(ref control))
         {
             bool right_set =
                 m_Right?.Remove_Control(control) ?? false;

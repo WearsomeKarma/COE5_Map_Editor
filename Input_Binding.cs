@@ -10,8 +10,8 @@ public struct Input_Binding
     public MouseButton? Mouse_Binding { get; private set; }
 
     public int Operation_Code { get; set; }
-    public Operation_Core__Types Operation__As_Core_Op
-        => (Operation_Core__Types)Operation_Code;
+    public Operation_Types Operation__As_Core_Op
+        => (Operation_Types)Operation_Code;
 
     public bool Is__Keyboard_Or_Mouse__Controlled
         => Mouse_Binding == null;
@@ -28,6 +28,27 @@ public struct Input_Binding
         => (Modifier_Type & Input_Modifier_Types.Ctrl) == Input_Modifier_Types.Ctrl;
     public bool Requires__Alt
         => (Modifier_Type & Input_Modifier_Types.Alt) == Input_Modifier_Types.Alt;
+
+    internal Input_Binding
+    (
+        Input_Binding clone,
+        int? operation_type = null,
+        Input_Modifier_Types? modifier_type = null
+    )
+    {
+        Key_Binding = clone.Key_Binding;
+        Mouse_Binding = clone.Mouse_Binding;
+        Operation_Code =
+            operation_type != null
+            ? (int)operation_type
+            : clone.Operation_Code
+            ;
+        Modifier_Type =
+            modifier_type != null
+            ? (Input_Modifier_Types)modifier_type
+            : clone.Modifier_Type
+            ;
+    }
 
     internal Input_Binding
     (

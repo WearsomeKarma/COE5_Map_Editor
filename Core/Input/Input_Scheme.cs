@@ -34,19 +34,19 @@ public class Input_Scheme : IEnumerable<Input_Binding>
     {
         get =>
             new Input_Scheme_Factory()
-            .Bind_Key(Keys.D0, Operation_Core__Types.Move_To__Plane)
-            .Bind_Key(Keys.D1, Operation_Core__Types.Move_To__Plane)
-            .Bind_Key(Keys.D2, Operation_Core__Types.Move_To__Plane)
-            .Bind_Key(Keys.D3, Operation_Core__Types.Move_To__Plane)
-            .Bind_Key(Keys.D4, Operation_Core__Types.Move_To__Plane)
-            .Bind_Key(Keys.D5, Operation_Core__Types.Move_To__Plane)
-            .Bind_Key(Keys.D6, Operation_Core__Types.Move_To__Plane)
-            .Bind_Key(Keys.D7, Operation_Core__Types.Move_To__Plane)
-            .Bind_Key(Keys.D8, Operation_Core__Types.Move_To__Plane)
-            .Bind_Key(Keys.D9, Operation_Core__Types.Move_To__Plane)
-            .Bind_Mouse(MouseButton.Left, Operation_Core__Types.Tool__Use)
-            .Bind_Mouse(MouseButton.Right, Operation_Core__Types.View__Pan)
-            .Bind_Key(Keys.R, Operation_Core__Types.View__Reset)
+            .Bind_Key(Keys.D0, Operation_Types.Move_To__Plane)
+            .Bind_Key(Keys.D1, Operation_Types.Move_To__Plane)
+            .Bind_Key(Keys.D2, Operation_Types.Move_To__Plane)
+            .Bind_Key(Keys.D3, Operation_Types.Move_To__Plane)
+            .Bind_Key(Keys.D4, Operation_Types.Move_To__Plane)
+            .Bind_Key(Keys.D5, Operation_Types.Move_To__Plane)
+            .Bind_Key(Keys.D6, Operation_Types.Move_To__Plane)
+            .Bind_Key(Keys.D7, Operation_Types.Move_To__Plane)
+            .Bind_Key(Keys.D8, Operation_Types.Move_To__Plane)
+            .Bind_Key(Keys.D9, Operation_Types.Move_To__Plane)
+            .Bind_Mouse(MouseButton.Left, Operation_Types.Tool__Use)
+            .Bind_Mouse(MouseButton.Right, Operation_Types.View__Pan)
+            .Bind_Key(Keys.R, Operation_Types.View__Reset)
             .Input_Scheme
             ;
     }

@@ -7,6 +7,9 @@ public class COE5_Map : IEnumerable<COE5_Plane>
     private readonly Dictionary<COE5_Plane_Type, COE5_Plane> _planes =
         new Dictionary<COE5_Plane_Type, COE5_Plane>();
 
+    public bool Check_If__Has_Plane(COE5_Plane_Type plane_type)
+        => _planes.ContainsKey(plane_type);
+
     public COE5_Plane this[COE5_Plane_Type plane_type]
         => _planes[plane_type];
 
